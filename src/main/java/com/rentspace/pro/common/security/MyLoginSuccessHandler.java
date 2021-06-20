@@ -35,8 +35,8 @@ public class MyLoginSuccessHandler implements AuthenticationSuccessHandler{
 						); //End of forEach
 		log.info("ROLE NAMES: "+roleNames) ;//role이름 리스트를 콘솔 표시
 		
-		if(roleNames.contains("ROLE_ADMIN")) response.sendRedirect("/rentspace/");
-		else response.sendRedirect("/ex00/");
+//		if(roleNames.contains("ROLE_ADMIN")) response.sendRedirect("/rentspace/");
+//		else response.sendRedirect("/rentspace/");
 	}
 
 	

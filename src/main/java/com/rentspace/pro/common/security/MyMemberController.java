@@ -1,6 +1,7 @@
 package com.rentspace.pro.common.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -98,5 +99,21 @@ public class MyMemberController {
 //		String check= Integer.toString(myMemberMapper.idCheck(member_id));
 //		return Boolean.parseBoolean(check);
 		return Integer.toString(myMemberMapper.idCheck(member_id));
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/myPage")
+	public String myPage() {
+		return "common/myPage";
+	}
+	
+	@GetMapping("/checkReservation")
+	public String checkResrv() {
+		return "common/checkReservation";
+	}
+	
+	@GetMapping("/modifyProfile")
+	public String modifyProfile() {
+		return "common/modifyProfile";
 	}
 }

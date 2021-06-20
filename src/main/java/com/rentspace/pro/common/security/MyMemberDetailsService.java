@@ -11,6 +11,9 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
+//데이터베이스로부터 데이터 가져와서 MyMemberUser객체에 저장하여 Provider에게 전달
+//Provider는 MyMemberUser객체를 스프링 시큐리티에게 전달
+//스프링 시큐리티는 전달된 데이터를 이용해서 로그인 인증, 페이지 액세스 여부 및 기능 사용에 대한 승인 과정을 처리
 public class MyMemberDetailsService implements UserDetailsService {
 
 	//setter방식 주입이 구성되어야 security-context.xml에 정상적인 설정이 가능

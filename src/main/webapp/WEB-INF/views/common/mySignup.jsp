@@ -53,12 +53,9 @@
                     <!-- role: 페이지 탐색을 목적으로 페이지 내의 특정 지점을 묘사한다. 스크린 리더가 이 영역으로 쉽게 이동하도록 만들 수 있다. -->
                 	<form role="form" action="${contextPath }/signup" method="post">
 	                	<fieldset>
-	                    	<div class="form-group">
-	                        		<!-- 프로필사진 등록(선택) -->
-	                        </div>
 	                        <div class="form-group">
 	                        		<label>아이디</label>
-	                        		<input class="form-control" name="member_id" type="text" id="member_id" required autofocus>
+	                        		<input class="form-control" name="member_id" type="text" id="member_id" required>
 									<div class="check_font" id="id_check"></div>
 	                        </div> 
 	                       	<div class="form-group">
@@ -80,6 +77,7 @@
 	                       	<div class="form-group">
 	                       		<label>핸드폰번호</label>
 	                       		<input class="form-control" name="member_phone" type="tel" id="member_phone" required>
+<!-- 	                       		<button type="button" id="phone_check" onclick="btn_phone_check()">핸드폰 인증</button> -->
 	                       	</div> 
 	                       	<div class="checkbox">
 	                       		<!-- sms/email agree -->
@@ -204,16 +202,42 @@ function pw_re_ch(){
 		$("#reg_submit").attr("disabled", true);
 	}
 }
-/* $("#member_pw2").blur(function() {
-	if($(this).val() == $('#member_pw').val()){
-		$("#pw_check2").text('');
-	}else{
-		$("#pw_check2").text('비밀번호가 일치하지 않습니다');
-		$("#pw_check2").css("color", "red");
-		$("#reg_submit").attr("disabled", true);
-	}
-}); */
 
+//닉네임 중복검사
+
+//이메일유효성검사
+
+//핸드폰 인증
+function btn_phone_check(){
+	
+	var content="인증번호[" +Math.floor(Math.random()*1000000)+ "]";
+	var member_phone = $("#member_phone").val();
+	var sendData = {"recipientPhoneNumber": member_phone, "content": content};
+	console.log("------ 핸드폰 인증 content: "+content);
+	
+	$.ajax({
+		 url: '${contextPath}/sendSms',
+		 method: 'post',
+		 data: sendData,
+// 		 dataType: 'text', //서버로부터 내가 받는 데이터의 타입
+//		 contentType : 'application/json; charset=utf-8;',//내가 서버로 보내는 데이터의 타입
+//		 data: JSON.stringify(member_id),
+		 
+		success : function(data) {
+// 			console.log(data["requestId"]);							
+// 			console.log(data["requestTime"]);							
+// 			console.log(data["statusCode"]);							
+// 			console.log(data["statusName"]);	
+			console.log("성공");
+
+			
+		}, error : function(request,status,error) {
+						console.log("code:"+request.status+"\n"+
+								"message:"+request.responseText+"\n"
+								+"error:"+error);
+					}
+	});
+}
 //카카오 로그인
 function loginWithKakao() {
    Kakao.Auth.login({

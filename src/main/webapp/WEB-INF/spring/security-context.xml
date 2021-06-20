@@ -15,6 +15,7 @@
 	
 	<security:http>
 		<!-- csrf 기능 활성화(디폴트): <security:csrf/>, 비활성화: <security:csrf disabled="true"/> -->
+		<security:csrf />
 		
 <!-- 		요청 URL에 대한 권한 설정 -->
 <!-- 		pattern 속성에는 contextPath를 포함하지 않습니다. auto-config="true" -->
@@ -31,7 +32,13 @@
 		
 		<security:form-login login-page="/login" login-processing-url="/login"
 								default-target-url="/"/>
-		
+								
+		<!-- 스프링 시큐리티 자동로그인: 1주일 유지 -->
+		<!-- Referenced bean 'dataSource' not found 경고는 무시 (mybatis-context.xml에 정의되어 있음) -->
+		<security:remember-me data-source-ref="dataSource"
+								remember-me-parameter="remember-me"
+								token-validity-seconds="604800"/>
+								
 		<security:logout logout-url="/logout" logout-success-url="/"/>
 		
 	</security:http>
